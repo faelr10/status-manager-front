@@ -122,6 +122,11 @@ export const Container = styled.div`
   align-items: center;
   justify-content: flex-start;
   color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    width: 100%;
+  }
 `;
 
 export const BoxForm = styled.div`
@@ -143,7 +148,6 @@ export const BoxForm = styled.div`
     justify-content: center;
     align-items: center;
   }
-  
 `;
 
 export const BoxInput = styled.div`
@@ -193,7 +197,7 @@ export const TableContainer = styled.div`
 
 export const TabelaObras = styled.table`
   width: 100%; /* A tabela ocupa 100% da largura do TableContainer */
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
   text-align: center;
 `;
 
@@ -227,6 +231,11 @@ export const Td = styled.td`
   padding: 2px;
   font-size: 13px;
   vertical-align: middle;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    padding: 1px;
+  }
 `;
 
 export const TdData = styled(Td)`
