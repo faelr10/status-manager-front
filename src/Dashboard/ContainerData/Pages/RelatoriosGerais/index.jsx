@@ -18,18 +18,38 @@ export function RelatoriosGerais() {
   const [selectedMonth, setSelectedMonth] = useState(
     new Date().toLocaleString("default", { month: "long" }).toLowerCase()
   );
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchRelatorios() {
+      setLoading(true);
       try {
         const relatorios = await getRelatoriosGerais();
         setRelatorios(relatorios);
       } catch (error) {
         console.log("Error fetching relatorios gerais:", error);
+      } finally {
+        setLoading(false);
       }
     }
     fetchRelatorios();
   }, []);
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "1.5rem",
+        }}
+      >
+        Carregando relatórios...
+      </div>
+    );
+  }
 
   return (
     <>
@@ -56,14 +76,14 @@ export function RelatoriosGerais() {
         data={{
           onChange: (e) => setSelectedMonth(e.target.value),
         }}
-      ></SelectComponent>
+      />
       {relatorios.map((construtora) => (
         <Section key={construtora.id}>
           <TableContainer>
             <Table>
               <thead>
                 <tr>
-                  <TableHeadTitle colSpan="4">
+                  <TableHeadTitle colSpan={4}>
                     CONSTRUTORA {construtora.name.toUpperCase()} -{" "}
                     {selectedMonth.toUpperCase()}
                   </TableHeadTitle>
@@ -100,7 +120,7 @@ export function RelatoriosGerais() {
                         </tr>
                       ))}
                       <TotalRow>
-                        <TotalCell colSpan="3" style={{ textAlign: "right" }}>
+                        <TotalCell colSpan={3} style={{ textAlign: "right" }}>
                           TOTAL DA OBRA
                         </TotalCell>
                         <TotalCell>
