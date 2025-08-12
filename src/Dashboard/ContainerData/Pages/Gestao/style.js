@@ -197,7 +197,7 @@ export const TableContainer = styled.div`
 
 export const TabelaObras = styled.table`
   width: 100%; /* A tabela ocupa 100% da largura do TableContainer */
-  /* border-collapse: collapse; */
+  border-collapse: collapse;
   text-align: center;
 `;
 
