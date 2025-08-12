@@ -25,7 +25,7 @@ export function LeftBar() {
       </MenuButton>
 
       <Container isOpen={isOpen}>
-        <Logo src="src/images/Logo.jpeg" />
+        <Logo src="public/Logo.jpeg" />
         <MenusBar />
       </Container>
     </>
