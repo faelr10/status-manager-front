@@ -83,7 +83,7 @@ export function RelatoriosGerais() {
             <Table>
               <thead>
                 <tr>
-                  <TableHeadTitle colSpan={4}>
+                  <TableHeadTitle colSpan={5}>
                     CONSTRUTORA {construtora.name.toUpperCase()} -{" "}
                     {selectedMonth.toUpperCase()}
                   </TableHeadTitle>
@@ -92,6 +92,7 @@ export function RelatoriosGerais() {
                   <TableHeader>OBRAS</TableHeader>
                   <TableHeader>FUNCIONÁRIOS</TableHeader>
                   <TableHeader>DIÁRIAS TRABALHADAS</TableHeader>
+                  <TableHeader>HORAS TRABALHADAS</TableHeader>
                   <TableHeader>TOTAL</TableHeader>
                 </tr>
               </thead>
@@ -106,12 +107,13 @@ export function RelatoriosGerais() {
                       {obra.diarias.map((diaria, index) => (
                         <tr key={`${obra.id}-${diaria.funcionario}`}>
                           {index === 0 && (
-                            <TableData rowSpan={obra.diarias.length}>
+                            <TableData style={{ width: "13%" }} rowSpan={obra.diarias.length}>
                               {obra.name}
                             </TableData>
                           )}
-                          <TableData>{diaria.funcionario}</TableData>
+                          <TableData >{diaria.funcionario}</TableData>
                           <TableData>{diaria.quantidadeDiarias}</TableData>
+                          <TableData>{diaria.quantidadeHoras}</TableData>
                           <TableData>
                             {`R$ ${diaria.valorTotal
                               .toFixed(2)
@@ -120,7 +122,7 @@ export function RelatoriosGerais() {
                         </tr>
                       ))}
                       <TotalRow>
-                        <TotalCell colSpan={3} style={{ textAlign: "right" }}>
+                        <TotalCell colSpan={4} style={{ textAlign: "right" }}>
                           TOTAL DA OBRA
                         </TotalCell>
                         <TotalCell>

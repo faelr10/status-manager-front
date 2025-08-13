@@ -31,6 +31,7 @@ export function Gestao() {
     funcionarioId: "",
     obraId: "",
     data: "",
+    quantHoras: 0,
   });
 
   const [dadosTabela, setDadosTabela] = useState({});
@@ -174,6 +175,30 @@ export function Gestao() {
                 setFormData((prevData) => ({
                   ...prevData,
                   data: e.target.value,
+                })),
+            }}
+          />
+        </BoxInput>
+        <BoxInput>
+          <LabelComponent width="100%" children="Horas" />
+          <SelectComponent
+            options={[
+              { value: "1", label: "1" },
+              { value: "2", label: "2" },
+              { value: "3", label: "3" },
+              { value: "4", label: "4" },
+              { value: "5", label: "5" },
+              { value: "6", label: "6" },
+              { value: "7", label: "7" },
+              { value: "8", label: "8" },
+              { value: "9", label: "9" },
+              { value: "10", label: "10" },
+            ]}
+            data={{
+              onChange: (e) =>
+                setFormData((prevData) => ({
+                  ...prevData,
+                  quantHoras: Number(e.target.value),
                 })),
             }}
           />

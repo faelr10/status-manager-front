@@ -155,7 +155,7 @@ export const BoxInput = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 20%;
+  width: 18%;
   height: 100%;
   /* border: 1px solid #ccc; */
 
