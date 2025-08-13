@@ -232,6 +232,8 @@ export function Gestao() {
                         {obra}
                       </Td>
                     );
+                  } else if (obra.split(" - ")[1] === "8.8hrs") {
+                    return <Td key={index}>{obra.split(" - ")[0]} - Diária</Td>;
                   } else {
                     return <Td key={index}>{obra}</Td>;
                   }

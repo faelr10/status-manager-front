@@ -107,13 +107,18 @@ export function RelatoriosGerais() {
                       {obra.diarias.map((diaria, index) => (
                         <tr key={`${obra.id}-${diaria.funcionario}`}>
                           {index === 0 && (
-                            <TableData style={{ width: "13%" }} rowSpan={obra.diarias.length}>
+                            <TableData
+                              style={{ width: "13%" }}
+                              rowSpan={obra.diarias.length}
+                            >
                               {obra.name}
                             </TableData>
                           )}
-                          <TableData >{diaria.funcionario}</TableData>
-                          <TableData>{diaria.quantidadeDiarias}</TableData>
-                          <TableData>{diaria.quantidadeHoras}</TableData>
+                          <TableData>{diaria.funcionario}</TableData>
+                          <TableData>{diaria.quantidadeDiarias.toFixed(2)}</TableData>
+                          <TableData>
+                            {diaria.quantidadeHoras}
+                          </TableData>
                           <TableData>
                             {`R$ ${diaria.valorTotal
                               .toFixed(2)
