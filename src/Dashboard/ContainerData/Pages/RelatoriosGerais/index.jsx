@@ -12,13 +12,37 @@ import {
 } from "./style";
 import { SelectComponent } from "../../../../Components/Select";
 import { getRelatoriosGerais } from "../../../../Http/gestao/getRelatoriosGerais";
+import { DateRangePickerExample } from "../../../../Components/DataRanger";
+import { Label } from "../../../../Components/Label/style";
+import { ButtonComponent } from "../../../../Components/Button";
+import { set } from "date-fns";
+import { getRelatoriosFiltered } from "../../../../Http/gestao/getRelatoriosFiltered";
 
 export function RelatoriosGerais() {
   const [relatorios, setRelatorios] = useState([]);
-  const [selectedMonth, setSelectedMonth] = useState(
-    new Date().toLocaleString("default", { month: "long" }).toLowerCase()
-  );
   const [loading, setLoading] = useState(true);
+
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const handleFilter = async () => {
+    const formatDateForBackend = (date) => {
+      if (!date) return "";
+      return date.toISOString().split("T")[0]; // YYYY-MM-DD
+    };
+
+    const start = formatDateForBackend(startDate);
+    const end = formatDateForBackend(endDate);
+
+    console.log("Filtrando de:", start, "até:", end);
+
+    try {
+      const filtered = await getRelatoriosFiltered(start, end);
+      setRelatorios(filtered);
+    } catch (error) {
+      console.error("Erro ao buscar relatórios filtrados:", error);
+    }
+  };
 
   useEffect(() => {
     async function fetchRelatorios() {
@@ -54,29 +78,22 @@ export function RelatoriosGerais() {
   return (
     <>
       <PageTitle>RELATÓRIOS GERAIS</PageTitle>
-      <SelectComponent
-        width="25%"
-        marginBottom="2rem"
-        style={{ marginBottom: "2rem" }}
-        options={[
-          { value: "janeiro", label: "JANEIRO" },
-          { value: "fevereiro", label: "FEVEREIRO" },
-          { value: "marco", label: "MARÇO" },
-          { value: "abril", label: "ABRIL" },
-          { value: "maio", label: "MAIO" },
-          { value: "junho", label: "JUNHO" },
-          { value: "julho", label: "JULHO" },
-          { value: "agosto", label: "AGOSTO" },
-          { value: "setembro", label: "SETEMBRO" },
-          { value: "outubro", label: "OUTUBRO" },
-          { value: "novembro", label: "NOVEMBRO" },
-          { value: "dezembro", label: "DEZEMBRO" },
-        ]}
-        value={selectedMonth}
-        data={{
-          onChange: (e) => setSelectedMonth(e.target.value),
+
+      <Label>PERÍODO</Label>
+      <DateRangePickerExample
+        onSelect={({ startDate, endDate }) => {
+          setStartDate(startDate);
+          setEndDate(endDate);
         }}
       />
+
+      <ButtonComponent
+        style={{ marginLeft: "1rem", width: "15%" }}
+        onClick={handleFilter}
+      >
+        Buscar
+      </ButtonComponent>
+
       {relatorios.map((construtora) => (
         <Section key={construtora.id}>
           <TableContainer>
@@ -84,8 +101,7 @@ export function RelatoriosGerais() {
               <thead>
                 <tr>
                   <TableHeadTitle colSpan={5}>
-                    CONSTRUTORA {construtora.name.toUpperCase()} -{" "}
-                    {selectedMonth.toUpperCase()}
+                    CONSTRUTORA {construtora.name.toUpperCase()}
                   </TableHeadTitle>
                 </tr>
                 <tr>
@@ -115,10 +131,10 @@ export function RelatoriosGerais() {
                             </TableData>
                           )}
                           <TableData>{diaria.funcionario}</TableData>
-                          <TableData>{diaria.quantidadeDiarias.toFixed(2)}</TableData>
                           <TableData>
-                            {diaria.quantidadeHoras}
+                            {diaria.quantidadeDiarias.toFixed(2)}
                           </TableData>
+                          <TableData>{diaria.quantidadeHoras}</TableData>
                           <TableData>
                             {`R$ ${diaria.valorTotal
                               .toFixed(2)
