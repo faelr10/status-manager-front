@@ -7,6 +7,7 @@ import { Funcionarios } from "./Dashboard/ContainerData/Pages/Funcionarios";
 import { DashBoard } from "./Dashboard";
 import { RelatoriosGerais } from "./Dashboard/ContainerData/Pages/RelatoriosGerais";
 import { Ponto } from "./Dashboard/ContainerData/Pages/Ponto";
+import { Financeiro } from "./Dashboard/ContainerData/Pages/Financeiro";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="obras" element={<Obras />} />
           <Route path="funcionarios" element={<Funcionarios />} />
           <Route path="controle-ponto" element={<Ponto />} />
+          <Route path="financeiro" element={<Financeiro />} />
         </Route>
       </Routes>
     </BrowserRouter>

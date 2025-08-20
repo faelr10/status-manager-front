@@ -10,6 +10,9 @@ export function MenusBar() {
       <Menu as={Link} to="/relatorios-gerais">
         Relatórios Gerais
       </Menu>
+      <Menu as={Link} to="/financeiro">
+        Financeiro
+      </Menu>
       <Menu as={Link} to="/obras">
         Obras
       </Menu>
